@@ -80,7 +80,7 @@ app.get('/', function (req, res) {
 
  app.post('/feedFishFalseFrom8266', function (req, res) {
     const bool = [false];
-    pool.query("UPDATE ff.feeder_data SET should_feed = $1 , modified = now()",bool,(err,res)=>
+    pool.query("UPDATE ff.feeder_data SET should_feed = $1 , modified = now()",bool,(err,ress)=>
     {
         if(err)
         {
@@ -88,7 +88,7 @@ app.get('/', function (req, res) {
             res.send("-1");
         }else
         {
-            console.log(res);
+            console.log(ress);
             res.send("1");
         }
     })
