@@ -66,6 +66,7 @@ app.get('/', function (req, res) {
 
 function makeFalse()
 {
+    const bool = [false];
     pool.query("UPDATE ff.feeder_data SET should_feed = $1 , modified = now()",bool,(err,ress)=>
     {
         if(err)
