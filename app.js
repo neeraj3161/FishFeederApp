@@ -28,7 +28,7 @@ app.get('/', function (req, res) {
  })
 
 
- app.post('/feedFishTrue', function (req, res) {
+ app.get('/feedFishTrue', function (req, res) {
     const bool = [true];
     pool.query("UPDATE ff.feeder_data SET should_feed = $1 , modified = now()",bool,(err,ress)=>
     {
@@ -81,7 +81,7 @@ function makeFalse()
     })
 }
 
- app.post('/feedFishFalse', function (req, res) {
+ app.get('/feedFishFalse', function (req, res) {
     const bool = [false];
     pool.query("UPDATE ff.feeder_data SET should_feed = $1 , modified = now()",bool,(err,ress)=>
     {
@@ -98,7 +98,7 @@ function makeFalse()
  })
 
 
- app.post('/feedFishFalseFrom8266', function (req, res) {
+ app.get('/feedFishFalseFrom8266', function (req, res) {
     const bool = [false];
     pool.query("UPDATE ff.feeder_data SET should_feed = $1 , modified = now()",bool,(err,ress)=>
     {
@@ -114,6 +114,6 @@ function makeFalse()
     })
  })
 
- app.listen(process.env.port|| 3000,()=>{
+ app.listen(process.env.port || 3000,()=>{
     console.log("Server started at port 3000");
  })
