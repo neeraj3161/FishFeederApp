@@ -54,12 +54,29 @@ app.get('/', function (req, res) {
         }else
         {
             console.log(ress.rows[0].should_feed);
+            var value = (ress.rows[0].should_feed).toString();
             res.send((ress.rows[0].should_feed).toString()) ;
+            if(value==="true")
+            {
+                makeFalse();
+            }
         }
     })
  })
 
-
+function makeFalse()
+{
+    pool.query("UPDATE ff.feeder_data SET should_feed = $1 , modified = now()",bool,(err,ress)=>
+    {
+        if(err)
+        {
+            console.log("Make False failed");
+        }else
+        {
+            console.log("Make False complete");
+        }
+    })
+}
 
  app.post('/feedFishFalse', function (req, res) {
     const bool = [false];
