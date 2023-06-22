@@ -3,7 +3,12 @@ const app =  express();
 const pg = require('pg');
 require('dotenv').config();
 
-
+app.use((req,res,next)=>{
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
+    res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
+    next(); 
+})
 const pool = new pg.Pool({
     user:process.env.USER,
     host:process.env.HOST,
@@ -26,6 +31,23 @@ app.get('/', function (req, res) {
     })
     res.send('Hello World');
  })
+
+ app.get('/LastUpdateDetails', function (req, res) {
+    pool.query("select modified from ff.feeder_data",(err,ress)=>
+    {
+        if(ress)
+        {
+            res.send((ress.rows[0].modified).toString());
+            console.log((ress.rows[0].modified).toString());
+        }else
+        {
+            res.send(err);
+        }
+        
+
+    })
+ })
+
 
 
  app.get('/feedFishTrue', function (req, res) {
@@ -114,6 +136,6 @@ function makeFalse()
     })
  })
 
- app.listen(process.env.port || 3000,()=>{
+ app.listen( 3000,()=>{
     console.log("Server started at port 3000");
  })
