@@ -30,14 +30,16 @@ app.get('/', function (req, res) {
 
  app.post('/feedFishTrue', function (req, res) {
     const bool = [true];
-    pool.query("UPDATE ff.feeder_data SET should_feed = $1 , modified = now()",bool,(err,res)=>
+    pool.query("UPDATE ff.feeder_data SET should_feed = $1 , modified = now()",bool,(err,ress)=>
     {
         if(err)
         {
+            res.send("Error: "+err);
             console.log(err);
         }else
         {
-            console.log(res);
+            res.send("Success: "+ress);
+            console.log(ress);
         }
     })
  })
